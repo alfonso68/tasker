@@ -9,8 +9,11 @@ async function bootstrap() {
     databaseURL: "https://radar-nest-default-rtdb.firebaseio.com/",
   });
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: 'http://localhost:3000',
+  app.enableCors({ 
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001'
+    ],
     credentials: true,
   });
   await app.listen(3000);
