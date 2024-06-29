@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+    command: npm run start:prod
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
