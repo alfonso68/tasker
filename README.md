@@ -1,73 +1,123 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Radar Task Manager [BACKEND]
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Requrements
+- Docker: Version >= 26.1.1
+- Git: Version >= 2.45.1
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Backend** repository for Task Manager App built in [Nest](https://github.com/nestjs/nest) framework TypeScript.
 
-## Installation
+## Dev setup
 
 ```bash
+# Clone repository
+$ git clone https://github.com/alfonso68/tasker-be.git
+
+# Change directory
+$ cd tasker-be
+
+# Copy env file
+$ cp env .env
+```
+
+## Firebase setup .env
+
+```yaml
+# Replace #[PLACEHOLDERS]# in .env file
+
+FIREBASE_DATABASE_URL=#[FIREBASE_DATABASE_URL]#
+FIREBASE_CONFIG_FILE=#[FIREBASE_CONFIG_FILE]#
+```
+
+## Firebase Config download
+
+1. Go to **Firebase Console**
+1. Select Firebase project
+1. On the left panel, click on **Project Settings** (gear icon)
+1. Click on **Service Accounts**
+1. Click on **Generate new private key** button
+1. Download file with the following **name** & **location**:
+``
+tasker-be/src/firebase-config.json
+``
+
+## Build & Run
+
+```bash
+# Change to project root dir
+$ cd tasker-be
+
+# Install libs & Build
 $ npm install
+$ npm run build
+
+# Run on Docker
+$ docker-compose up --build
+
+# Wait for message:
+LOG [NestApplication] Nest application successfully started
 ```
 
-## Running the app
 
+## Access GraphQL Playground & API Docs
+
+- Go to http://localhost:3000/graphql
+- For API Docs click on **Schema**/**Docs** on right panel
+
+
+## API Queries for playground
+```gql
+# Get all tasks:
+query {
+  getTasks{
+    id,
+    title,
+    description,
+    isCompleted,
+    dueDate
+  }
+}
+
+# Create task:
+mutation {
+  createTask (input: {
+    title:"CR current projects",
+    description:"Code review open Pull Requests, approve or decline accordingly",
+    dueDate:"2024-06-30"
+  }) {
+    id,
+    title,
+    description,
+    dueDate,
+    isCompleted
+  }
+}
+
+# Update task (Set completed)
+mutation {
+  updateTask (input: {
+    id:"-O0fMIMxgVxbkOOINUnT",
+    title: "CR current projects COMPLETED",
+    isCompleted: true
+  }) {
+    id,
+    title,
+    description,
+    dueDate,
+    isCompleted
+  }
+}
+
+# Delete task
+mutation {
+  deleteTask (
+    id:"-O0fMIMxgVxbkOOINUnT"
+  )
+}
+```
+
+## Stop & Shutdown containers
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+$ docker-compose down -v 
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
