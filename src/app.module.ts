@@ -24,7 +24,7 @@ import { ConfigModule } from '@nestjs/config';
 export class AppModule {
   constructor() {
     if (!admin.apps.length) {
-      const serviceAccount = require(join(__dirname, '..', 'firebase-config.json'));
+      const serviceAccount = require(join(__dirname, '..', process.env.FIREBASE_CONFIG_FILE));
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
         databaseURL: process.env.FIREBASE_DATABASE_URL,

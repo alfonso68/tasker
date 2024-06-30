@@ -7,7 +7,7 @@ import { TasksModule } from './tasks/tasks.module';
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
-  databaseURL: 'https://radar-tasker-default-rtdb.firebaseio.com',
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
 });
 
 const verifyToken = async (req, res, next) => {

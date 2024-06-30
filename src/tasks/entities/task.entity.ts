@@ -1,4 +1,3 @@
-// src/tasks/entities/task.entity.ts
 import { Field, ObjectType, ID } from '@nestjs/graphql';
 
 @ObjectType()
