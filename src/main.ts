@@ -6,7 +6,7 @@ import * as serviceAccount from './firebase-config.json';
 async function bootstrap() {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-    databaseURL: "https://radar-nest-default-rtdb.firebaseio.com/",
+    databaseURL: "https://radar-tasker-default-rtdb.firebaseio.com/",
   });
   const app = await NestFactory.create(AppModule);
   app.enableCors({ 
