@@ -56,6 +56,9 @@ $ npm run build
 $ docker-compose up --build
 
 # Wait for message:
+...
+...
+...
 LOG [NestApplication] Nest application successfully started
 ```
 
@@ -119,7 +122,7 @@ mutation {
 
 ## Stop & Shutdown containers
 ```bash
-# Press Ctrl + c to stop container and then run below command>
+# Press Ctrl + c to stop container and then run below command:
 
 $ docker-compose down -v 
 ```
