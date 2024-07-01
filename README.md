@@ -119,5 +119,7 @@ mutation {
 
 ## Stop & Shutdown containers
 ```bash
+# Press Ctrl + c to stop container and then run below command>
+
 $ docker-compose down -v 
 ```
